@@ -11,13 +11,13 @@ posts = [
         'created': datetime(2022,7,26)
     },
     {
-        'title': 'secondo!',
+        'title': 'secondo!!',
         'content': 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad assumenda a deserunt nobis voluptatibus dolorem saepe facere alias rem ea earum itaque numquam explicabo, tempora tenetur quaerat magnam animi quisquam?',
         'author': 'Nunius',
         'created': datetime(2022,7,27)
     },
     {
-        'title': 'trosieme!!1!',
+        'title': 'troisieme!!!',
         'content': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium hic eaque reiciendis quas esse, dicta expedita distinctio dolores tenetur minus eos recusandae optio suscipit culpa consequuntur? Porro voluptates repellat exercitationem!',
         'author': 'Nunius',
         'created': datetime(2022,7,28)
@@ -26,5 +26,5 @@ posts = [
 
 @app.route('/')
 def index():
-    return render_template('index.html', posts=posts)
+    return render_template('blog.html', posts=posts)
 

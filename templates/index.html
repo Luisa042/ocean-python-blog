@@ -5,34 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(~.~)</title>
+    <title>{% block title %}{% endblock %} (~.~)</title>
 </head>
 
 <body>
     <header>
         <h1>o haii (~.~)</h1>
+        <nav></nav>
     </header>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium hic eaque reiciendis quas esse, dicta expedita distinctio dolores tenetur minus eos recusandae optio suscipit culpa consequuntur? Porro voluptates repellat exercitationem!
     <main>
-        <h2>blog</h2>
-        {% for post in posts %}
-        <article class="post">
-            <header>
-                <h3>{{post.title}}</h3>
-                <div class="about">
-                    <span>por {{post.author}}</span>
-                    <span> em {{post.created.strftime('%d de %B, %Y')}}</span>
-                </div>
-            </header>
-            <p class="content">{{post.content}}</p>
-        </article>
+        {% block content %}
 
-        {% if not loop.last  %}
-        <hr>
-        {% endif %}
-        
-        {% endfor %}
+        {% endblock %}
     </main>
+    <footer>
+        <span>made by nunius</span>
+    </footer>
 </body>
 
 </html>
