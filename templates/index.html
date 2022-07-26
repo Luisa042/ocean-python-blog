@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>(~.~)</title>
 </head>
+
 <body>
-    <p>o haii (>.<)</p>
+    <header>
+        <h1>o haii (~.~)</h1>
+    </header>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium hic eaque reiciendis quas esse, dicta expedita distinctio dolores tenetur minus eos recusandae optio suscipit culpa consequuntur? Porro voluptates repellat exercitationem!
+    <main>
+        <h2>blog</h2>
+        {% for post in posts %}
+        <article class="post">
+            <header>
+                <h3>{{post.title}}</h3>
+                <div class="about">
+                    <span>por {{post.author}}</span>
+                    <span> em {{post.created.strftime('%d de %B, %Y')}}</span>
+                </div>
+            </header>
+            <p class="content">{{post.content}}</p>
+        </article>
+
+        {% if not loop.last  %}
+        <hr>
+        {% endif %}
+        
+        {% endfor %}
+    </main>
 </body>
+
 </html>
