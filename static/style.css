@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    --cotton-candy: #fdc5f5;
+    --plum-web: #f7aef8;
+    --lavender-floral: #b388eb;
+    
+    --cornflower-blue: #8093f1;
+    --maximum-blue-purple: #99a9f4;
+}
+
+html {
+    font-family: sans-serif;
+}
+
+body {
+    background-color: var(--cotton-candy);
+    color: var(--cornflower-blue);
+}
+
+header {
+    background-color: var(--plum-web);
+    color: var(--lavender-floral);
+    padding: 1.25rem;
+}
+
+footer {
+    color: var(--lavender-floral);
+    padding: 0.25rem 1.25rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section {
+    max-width: 960px;
+    padding: 2rem;
+
+    min-height: 80vh;
+}
+
+article {
+    padding: 1.25rem;
+}
+
+hr {
+    border: 1px dashed var(--plum-web);
+}

@@ -1,20 +1,18 @@
 {% extends 'index.html' %}
 
-<h2>
 {% block title %}blog{% endblock %}
-</h2>
 
 {% block content %}
 <section>
     {% for post in posts %}
     <article class="post">
-        <header>
+        <div class="article-header">
             <h3>{{post.title}}</h3>
             <div class="about">
                 <span>por {{post.author}}</span>
                 <span> em {{post.created.strftime('%d de %B, %Y')}}</span>
             </div>
-        </header>
+        </div>
         <p class="content">{{post.content}}</p>
     </article>
     {% if not loop.last %}
