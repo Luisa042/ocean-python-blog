@@ -1,10 +1,12 @@
 from flask import Flask, render_template, redirect, url_for
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask('henlo')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'animu'
 
 db = SQLAlchemy(app)
 
@@ -23,6 +25,12 @@ class User(db.Model):
     email = db.Column(db.String(64), nullable=False, unique=True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author')
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
     
 db.create_all()
 
@@ -30,16 +38,3 @@ db.create_all()
 def index():
     posts = Post.query.all()
     return render_template('blog.html', posts=posts)
-
-@app.route('/populate')
-def populate():
-    user = User(username='Nunius', email='abc@def.com', password_hash='sdkdfdg')
-    post1 = Post(title='first',content='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ad porro voluptatibus at placeat facilis in odit corporis repudiandae atque iure fugit officia, eos voluptates officiis, sapiente temporibus libero debitis.', author=user)
-    post2 = Post(title='second', content='Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo ipsam quam sapiente quidem iusto laudantium praesentium omnis quas nesciunt. Odit nesciunt quos expedita quam? Tenetur, est. Vitae minima nam accusamus.', author=user)
-    post3 = Post(title='third', content='Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit recusandae, libero facere molestias ab quibusdam quas perspiciatis illo aperiam corrupti esse nostrum? Aperiam nesciunt rem ea magnam. Dolores, laborum totam.', author=user)
-    db.session.add(user)
-    db.session.add(post1)
-    db.session.add(post2)
-    db.session.add(post3)
-    db.session.commit()
-    return redirect(url_for('index'))
