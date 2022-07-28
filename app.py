@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask('henlo')
@@ -9,6 +10,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'animu'
 
 db = SQLAlchemy(app)
+login = LoginManager(app)
+
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -18,10 +21,12 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-class User(db.Model):
+
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(25), nullable=False, unique=True, index=True)
+    username = db.Column(db.String(25), nullable=False,
+                         unique=True, index=True)
     email = db.Column(db.String(64), nullable=False, unique=True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author')
@@ -31,10 +36,22 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-    
+
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
+
 db.create_all()
+
 
 @app.route('/')
 def index():
     posts = Post.query.all()
     return render_template('blog.html', posts=posts)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    return render_template('register.html')
