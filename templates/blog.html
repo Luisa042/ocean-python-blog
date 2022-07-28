@@ -9,8 +9,8 @@
         <div class="article-header">
             <h3>{{post.title}}</h3>
             <div class="about">
-                <span>por {{post.author}}</span>
-                <span> em {{post.created.strftime('%d de %B, %Y')}}</span>
+                <span>por {{post.author.username}}</span>
+                <span> em {{post.created_at.strftime('%d de %B, %Y')}}</span>
             </div>
         </div>
         <p class="content">{{post.content}}</p>
@@ -18,6 +18,8 @@
     {% if not loop.last %}
     <hr>
     {% endif %}
+    {% else %}
+    <p class="no-entries">Oops... There are no posts yet!</p>
     {% endfor %}
 </section>
 {% endblock %}

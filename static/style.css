@@ -49,3 +49,7 @@ article {
 hr {
     border: 1px dashed var(--plum-web);
 }
+
+.no-entries {
+    font-style: italic;
+}
