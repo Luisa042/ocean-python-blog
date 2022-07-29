@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+{% block title %}create post{% endblock %}
+
+{% block header %}create post{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <fieldset>
+        <div class="input">
+            <label for="title">title</label><br>
+            <input type="text" name="title" id="title" value="{{ request.form['title'] }}" required>
+        </div>
+        <div class="input">
+            <label for="content">text to post (max 500 char)</label><br>
+            <input type="text" name="content" id="content" {{ request.form['content'] }} >
+        </div>
+        <div class="input">
+            <input type="submit" value="publish" id="button">
+        </div>
+    </fieldset>
+</form>
+{% endblock %}
