@@ -12,9 +12,36 @@
 <body>
     <header>
         <h1>o haii (~.~)</h1>
-        <nav></nav>
+        <span class="page">
+            {% block header %}
+            {% endblock %}
+        </span>
+        <nav>
+            <ul>
+                {% if current_user.is_authenticated %}
+                <li>
+                    <span> {{ current_user.username }} </span>
+                </li>
+                <li>
+                    <a href="{{ url_for('logout') }}">logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{{ url_for('register') }}">register</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('login') }}">login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
     </header>
     <main>
+        <div>
+            {% for message in get_flashed_messages() %}
+            <span class="flash-error">{{ message }}</span>
+            {% endfor %}
+        </div>
         {% block content %}
 
         {% endblock %}

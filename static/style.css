@@ -24,6 +24,22 @@ header {
     background-color: var(--plum-web);
     color: var(--lavender-floral);
     padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li {
+    text-decoration: none;
+    margin: .25rem;
+    padding: .75rem;
+    background-color: var(--lavender-floral);
+    color: var(--cotton-candy);
+    border-radius: 5px;
 }
 
 footer {
@@ -38,7 +54,6 @@ footer {
 section {
     max-width: 960px;
     padding: 2rem;
-
     min-height: 80vh;
 }
 
