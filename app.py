@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, current_user
+from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.exc import IntegrityError
 
@@ -26,7 +26,8 @@ class Post(db.Model):
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(25), nullable=False, unique=True, index=True)
+    username = db.Column(db.String(25), nullable=False,
+                         unique=True, index=True)
     email = db.Column(db.String(64), nullable=False, unique=True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author')
@@ -73,6 +74,24 @@ def register():
     return render_template('register.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('blog'))
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        if user is None or not user.check_password(password):
+            flash('wrong username/password')
+            return redirect(url_for('login'))
+        login_user(user)
+        return redirect(url_for('blog'))
+
     return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return render_template('blog.html')
