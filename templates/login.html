@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block title %}login{% endblock %}
+
+{% block content %}
+<form action="" >
+    <fieldset>
+        <div class="input">
+            <label for="email">email</label><br>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div class="input">
+            <label for="password">password</label><br>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <div class="input">
+            <input type="submit" value="login" id="button">
+        </div>
+    </fieldset>
+</form>
+{% endblock %}
